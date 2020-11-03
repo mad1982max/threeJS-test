@@ -5,7 +5,7 @@ function createControls(camera, canvas) {
   controls.enableDamping = true;
   // controls.dampingFactor = 0.5;
   controls.autoRotate = true;
-  controls.autoRotateSpeed = 1;
+  controls.autoRotateSpeed = 0.2;
 
   controls.tick = () => {
     controls.update();

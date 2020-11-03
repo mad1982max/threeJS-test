@@ -27,6 +27,5 @@ function main() {
     world.camera.position.set(-15, 10, 20);
     world.camera.rotation.set(0, 0, 0);
     world.controls.update();
-    console.log(world);
   }
 }
