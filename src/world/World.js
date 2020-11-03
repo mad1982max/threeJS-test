@@ -3,6 +3,7 @@ import { createScene } from "./components/scene.js";
 import { createAxesHelper, createGridHelper } from "./components/helpers.js";
 import { createLights } from "./components/lights.js";
 import { Train } from "./components/Train/Train.js";
+import { Tracks } from "./components/Envirements/Tracks/Tracks.js";
 
 import { createRenderer } from "./systems/renderer.js";
 import { Resizer } from "./systems/Resizer.js";
@@ -27,6 +28,8 @@ export class World {
     this.controls = createControls(this.camera, renderer.domElement);
 
     const train = new Train();
+    const tracks = new Tracks();
+    console.log(tracks);
     const { ambientLight, mainLight } = createLights();
 
     this.controls.addEventListener("change", () => {
@@ -34,7 +37,7 @@ export class World {
     });
 
     loop.updatables.push(this.controls, train);
-    scene.add(ambientLight, mainLight, train);
+    scene.add(ambientLight, mainLight, train, tracks);
 
     const resizer = new Resizer(container, this.camera, renderer);
     scene.add(createAxesHelper(), createGridHelper());
