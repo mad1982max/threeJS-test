@@ -11,7 +11,6 @@ function main() {
   const container = document.querySelector("#scene-container");
   const world = new World(container);
   world.start();
-  // world.render();
 
   function startAnimation() {
     if (this.innerHTML === "START") {

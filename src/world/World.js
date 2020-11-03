@@ -1,7 +1,8 @@
 import { createCamera } from "./components/camera.js";
-import { createMeshGroup } from "./components/meshGroup.js";
 import { createScene } from "./components/scene.js";
+import { createAxesHelper, createGridHelper } from "./components/helpers.js";
 import { createLights } from "./components/lights.js";
+import { Train } from "./components/Train/Train.js";
 
 import { createRenderer } from "./systems/renderer.js";
 import { Resizer } from "./systems/Resizer.js";
@@ -9,46 +10,42 @@ import { Resizer } from "./systems/Resizer.js";
 import { Loop } from "./systems/Loop.js";
 import { createControls } from "./systems/controls.js";
 
-let camera;
 let renderer;
 let scene;
 let loop;
 
 export class World {
-  cube;
-  camera;
   controls;
+
   constructor(container) {
     this.camera = createCamera();
     scene = createScene();
     renderer = createRenderer();
     loop = new Loop(this.camera, scene, renderer);
     container.append(renderer.domElement);
+
     this.controls = createControls(this.camera, renderer.domElement);
 
-    const meshGroup = createMeshGroup();
+    const train = new Train();
     const { ambientLight, mainLight } = createLights();
 
-    // this.controls.target.copy(this.cube.position);
     this.controls.addEventListener("change", () => {
       this.render();
     });
 
-    loop.updatables.push(this.controls, meshGroup);
-    scene.add(ambientLight, mainLight, meshGroup);
-
-    // loop.updatables.push(this.controls);
-    // scene.add(this.cube, ambientLight, mainLight);
+    loop.updatables.push(this.controls, train);
+    scene.add(ambientLight, mainLight, train);
 
     const resizer = new Resizer(container, this.camera, renderer);
+    scene.add(createAxesHelper(), createGridHelper());
   }
   render() {
     renderer.render(scene, this.camera);
   }
 
   rotate(x) {
-    this.cube.rotation.y += -x;
-    this.cube.rotation.x += -x;
+    this.train.rotation.y += -x;
+    this.train.rotation.x += -x;
     renderer.render(scene, this.camera);
   }
 
