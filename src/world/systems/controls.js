@@ -4,7 +4,7 @@ function createControls(camera, canvas) {
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   // controls.dampingFactor = 0.5;
-  controls.autoRotate = true;
+  controls.autoRotate = false;
   controls.autoRotateSpeed = 0.2;
 
   controls.tick = () => {
